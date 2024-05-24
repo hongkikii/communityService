@@ -2,11 +2,13 @@ package com.study.communityService.controller;
 
 import com.study.communityService.controller.port.PostService;
 import com.study.communityService.controller.response.PostResponse;
+import com.study.communityService.domain.Headermodify;
 import com.study.communityService.domain.PostCreate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,5 +24,12 @@ public class PostController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(PostResponse.from(postService.create(postCreate)));
+    }
+
+    @PutMapping("/header")
+    public ResponseEntity<PostResponse> modify(@RequestBody Headermodify headermodify) {
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(PostResponse.from(postService.modify(headermodify)));
     }
 }

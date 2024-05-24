@@ -30,4 +30,11 @@ public class Post {
                 .createTime(LocalDateTime.now())
                 .build();
     }
+
+    public static Post modify(Headermodify headermodify) {
+        return Post.builder()
+                .id(headermodify.getId())
+                .header(headermodify.getHeader())
+                .build();
+    }
 }

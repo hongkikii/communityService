@@ -15,4 +15,9 @@ public class PostRepositoryImpl implements PostRepository {
     public Post save(Post post) {
         return postJpaRepository.save(PostEntity.from(post)).toModel();
     }
+
+    @Override
+    public Post findById(long id) {
+        return postJpaRepository.findById(id).get().toModel();
+    }
 }
