@@ -9,6 +9,7 @@ import com.study.communityService.post.domain.PostCreate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -27,6 +28,13 @@ public class PostController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(PostResponse.from(postService.create(postCreate)));
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<PostResponse> getById(@PathVariable long id) {
+        return ResponseEntity
+                .ok()
+                .body(PostResponse.from(postService.getById(id)));
     }
 
     @PutMapping("/header/{id}")
