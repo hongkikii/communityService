@@ -1,12 +1,13 @@
-package com.study.communityService.controller;
+package com.study.communityService.post.controller;
 
-import com.study.communityService.controller.port.PostService;
-import com.study.communityService.controller.response.PostResponse;
-import com.study.communityService.domain.Headermodify;
-import com.study.communityService.domain.PostCreate;
+import com.study.communityService.post.controller.port.PostService;
+import com.study.communityService.post.controller.response.PostResponse;
+import com.study.communityService.post.domain.Headerupdate;
+import com.study.communityService.post.domain.PostCreate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,10 +27,10 @@ public class PostController {
                 .body(PostResponse.from(postService.create(postCreate)));
     }
 
-    @PutMapping("/header")
-    public ResponseEntity<PostResponse> modify(@RequestBody Headermodify headermodify) {
+    @PutMapping("/header/{id}")
+    public ResponseEntity<PostResponse> update(@PathVariable long id, @RequestBody Headerupdate headerupdate) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(PostResponse.from(postService.modify(headermodify)));
+                .body(PostResponse.from(postService.update(id, headerupdate)));
     }
 }

@@ -1,4 +1,4 @@
-package com.study.communityService.domain;
+package com.study.communityService.post.domain;
 
 import java.time.LocalDateTime;
 import lombok.Builder;
@@ -28,13 +28,19 @@ public class Post {
                 .header(postCreate.getHeader())
                 .content(postCreate.getContent())
                 .createTime(LocalDateTime.now())
+                .views(0)
+                .likes(0)
                 .build();
     }
 
-    public static Post modify(Headermodify headermodify) {
+    public Post update(Headerupdate headerupdate) {
         return Post.builder()
-                .id(headermodify.getId())
-                .header(headermodify.getHeader())
+                .id(id)
+                .header(headerupdate.getHeader())
+                .content(content)
+                .createTime(createTime)
+                .views(views)
+                .likes(likes)
                 .build();
     }
 }

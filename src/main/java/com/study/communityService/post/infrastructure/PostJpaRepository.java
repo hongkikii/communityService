@@ -1,4 +1,4 @@
-package com.study.communityService.infrastructure;
+package com.study.communityService.post.infrastructure;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

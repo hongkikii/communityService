@@ -1,4 +1,4 @@
-package com.study.communityService.domain;
+package com.study.communityService.post.domain;
 
 import lombok.Getter;
 

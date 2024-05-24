@@ -1,6 +1,6 @@
-package com.study.communityService.infrastructure;
+package com.study.communityService.post.infrastructure;
 
-import com.study.communityService.domain.Post;
+import com.study.communityService.post.domain.Post;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

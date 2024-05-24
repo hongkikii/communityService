@@ -1,7 +1,8 @@
-package com.study.communityService.infrastructure;
+package com.study.communityService.post.infrastructure;
 
-import com.study.communityService.domain.Post;
-import com.study.communityService.service.port.PostRepository;
+import com.study.communityService.post.domain.Post;
+import com.study.communityService.post.service.port.PostRepository;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -17,7 +18,7 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public Post findById(long id) {
-        return postJpaRepository.findById(id).get().toModel();
+    public Optional<Post> findById(long id) {
+        return postJpaRepository.findById(id).map(PostEntity::toModel);
     }
 }

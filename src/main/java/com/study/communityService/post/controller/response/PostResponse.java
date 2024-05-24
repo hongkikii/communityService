@@ -1,6 +1,6 @@
-package com.study.communityService.controller.response;
+package com.study.communityService.post.controller.response;
 
-import com.study.communityService.domain.Post;
+import com.study.communityService.post.domain.Post;
 import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
