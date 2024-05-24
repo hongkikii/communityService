@@ -2,7 +2,9 @@ package com.study.communityService.post.controller;
 
 import com.study.communityService.post.controller.port.PostService;
 import com.study.communityService.post.controller.response.PostResponse;
+import com.study.communityService.post.domain.ContentUpdate;
 import com.study.communityService.post.domain.Headerupdate;
+import com.study.communityService.post.domain.Post;
 import com.study.communityService.post.domain.PostCreate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -32,5 +34,12 @@ public class PostController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(PostResponse.from(postService.update(id, headerupdate)));
+    }
+
+    @PutMapping("/content/{id}")
+    public ResponseEntity<PostResponse> update(@PathVariable long id, @RequestBody ContentUpdate contentUpdate) {
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(PostResponse.from(postService.update(id, contentUpdate)));
     }
 }

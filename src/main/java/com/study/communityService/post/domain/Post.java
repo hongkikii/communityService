@@ -43,4 +43,15 @@ public class Post {
                 .likes(likes)
                 .build();
     }
+
+    public Post update(ContentUpdate contentUpdate) {
+        return Post.builder()
+                .id(id)
+                .header(header)
+                .content(contentUpdate.getContent())
+                .createTime(createTime)
+                .views(views)
+                .likes(likes)
+                .build();
+    }
 }
