@@ -21,4 +21,9 @@ public class PostRepositoryImpl implements PostRepository {
     public Optional<Post> findById(long id) {
         return postJpaRepository.findById(id).map(PostEntity::toModel);
     }
+
+    @Override
+    public void deleteById(long id) {
+        postJpaRepository.deleteById(id);
+    }
 }

@@ -4,11 +4,11 @@ import com.study.communityService.post.controller.port.PostService;
 import com.study.communityService.post.controller.response.PostResponse;
 import com.study.communityService.post.domain.ContentUpdate;
 import com.study.communityService.post.domain.Headerupdate;
-import com.study.communityService.post.domain.Post;
 import com.study.communityService.post.domain.PostCreate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,5 +49,13 @@ public class PostController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(PostResponse.from(postService.update(id, contentUpdate)));
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> delete(@PathVariable long id) {
+        postService.deleteById(id);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body("게시물을 성공적으로 삭제하였습니다.");
     }
 }
