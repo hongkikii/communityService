@@ -25,11 +25,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class PostController {
     private final PostService postService;
 
-    @GetMapping("/recent")
+    @GetMapping("/latest")
     public ResponseEntity<List<PostResponse>> getLatest(@RequestParam int startPage) {
         return ResponseEntity
                 .ok()
                 .body(postService.getLatest(startPage).stream()
+                        .map(post -> PostResponse.from(post))
+                        .toList());
+    }
+
+    @GetMapping("/views")
+    public ResponseEntity<List<PostResponse>> getViews(@RequestParam int startPage) {
+        return ResponseEntity
+                .ok()
+                .body(postService.getViews(startPage).stream()
                         .map(post -> PostResponse.from(post))
                         .toList());
     }
@@ -63,7 +72,7 @@ public class PostController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<String> delete(@PathVariable long id) {
+    public ResponseEntity<String> deleteById(@PathVariable long id) {
         postService.deleteById(id);
         return ResponseEntity
                 .status(HttpStatus.OK)

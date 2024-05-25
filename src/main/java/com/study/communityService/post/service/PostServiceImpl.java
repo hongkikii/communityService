@@ -28,6 +28,12 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public List<Post> getViews(int startPage) {
+        PageRequest pageRequest = PageRequest.of(startPage, 10, Sort.by(Direction.DESC,"views"));
+        return postRepository.findBy(pageRequest);
+    }
+
+    @Override
     public Post getById(long id) {
         return postRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Posts", id));
