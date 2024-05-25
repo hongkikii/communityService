@@ -30,7 +30,7 @@ public class PostController {
         return ResponseEntity
                 .ok()
                 .body(postService.getLatest(startPage).stream()
-                        .map(post -> PostResponse.from(post))
+                        .map(PostResponse::from)
                         .toList());
     }
 
@@ -39,7 +39,7 @@ public class PostController {
         return ResponseEntity
                 .ok()
                 .body(postService.getByViews(startPage).stream()
-                        .map(post -> PostResponse.from(post))
+                        .map(PostResponse::from)
                         .toList());
     }
 
@@ -48,7 +48,7 @@ public class PostController {
         return ResponseEntity
                 .ok()
                 .body(postService.getByLikes(startPage).stream()
-                        .map(post -> PostResponse.from(post))
+                        .map(PostResponse::from)
                         .toList());
     }
 
