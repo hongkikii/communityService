@@ -4,8 +4,11 @@ import com.study.communityService.post.domain.ContentUpdate;
 import com.study.communityService.post.domain.Headerupdate;
 import com.study.communityService.post.domain.Post;
 import com.study.communityService.post.domain.PostCreate;
+import java.util.List;
 
 public interface PostService {
+
+    List<Post> getLatest(int startPage);
 
     Post getById(long id);
 

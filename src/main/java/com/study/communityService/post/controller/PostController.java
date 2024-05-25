@@ -5,6 +5,7 @@ import com.study.communityService.post.controller.response.PostResponse;
 import com.study.communityService.post.domain.ContentUpdate;
 import com.study.communityService.post.domain.Headerupdate;
 import com.study.communityService.post.domain.PostCreate;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -23,11 +25,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class PostController {
     private final PostService postService;
 
-    @PostMapping
-    public ResponseEntity<PostResponse> create(@RequestBody PostCreate postCreate) {
+    @GetMapping("/recent")
+    public ResponseEntity<List<PostResponse>> getLatest(@RequestParam int startPage) {
         return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(PostResponse.from(postService.create(postCreate)));
+                .ok()
+                .body(postService.getLatest(startPage).stream()
+                        .map(post -> PostResponse.from(post))
+                        .toList());
     }
 
     @GetMapping("{id}")
@@ -35,6 +39,13 @@ public class PostController {
         return ResponseEntity
                 .ok()
                 .body(PostResponse.from(postService.getById(id)));
+    }
+
+    @PostMapping
+    public ResponseEntity<PostResponse> create(@RequestBody PostCreate postCreate) {
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(PostResponse.from(postService.create(postCreate)));
     }
 
     @PutMapping("/header/{id}")

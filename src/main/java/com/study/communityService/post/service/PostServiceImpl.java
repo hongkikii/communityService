@@ -7,7 +7,12 @@ import com.study.communityService.post.domain.Headerupdate;
 import com.study.communityService.post.domain.Post;
 import com.study.communityService.post.domain.PostCreate;
 import com.study.communityService.post.service.port.PostRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,8 +22,15 @@ public class PostServiceImpl implements PostService {
     private final PostRepository postRepository;
 
     @Override
+    public List<Post> getLatest(int startPage) {
+        PageRequest pageRequest = PageRequest.of(startPage, 10, Sort.by(Direction.DESC,"createTime"));
+        return postRepository.findBy(pageRequest);
+    }
+
+    @Override
     public Post getById(long id) {
-        return postRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Posts", id));
+        return postRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Posts", id));
     }
 
     @Override
