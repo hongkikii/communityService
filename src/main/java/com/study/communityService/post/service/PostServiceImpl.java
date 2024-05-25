@@ -10,7 +10,6 @@ import com.study.communityService.post.service.port.PostRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
@@ -28,8 +27,14 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> getViews(int startPage) {
+    public List<Post> getByViews(int startPage) {
         PageRequest pageRequest = PageRequest.of(startPage, 10, Sort.by(Direction.DESC,"views"));
+        return postRepository.findBy(pageRequest);
+    }
+
+    @Override
+    public List<Post> getByLikes(int startPage) {
+        PageRequest pageRequest = PageRequest.of(startPage, 10, Sort.by(Direction.DESC, "likes"));
         return postRepository.findBy(pageRequest);
     }
 

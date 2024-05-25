@@ -35,10 +35,19 @@ public class PostController {
     }
 
     @GetMapping("/views")
-    public ResponseEntity<List<PostResponse>> getViews(@RequestParam int startPage) {
+    public ResponseEntity<List<PostResponse>> getByViews(@RequestParam int startPage) {
         return ResponseEntity
                 .ok()
-                .body(postService.getViews(startPage).stream()
+                .body(postService.getByViews(startPage).stream()
+                        .map(post -> PostResponse.from(post))
+                        .toList());
+    }
+
+    @GetMapping("/likes")
+    public ResponseEntity<List<PostResponse>> getByLikes(@RequestParam int startPage) {
+        return ResponseEntity
+                .ok()
+                .body(postService.getByLikes(startPage).stream()
                         .map(post -> PostResponse.from(post))
                         .toList());
     }
