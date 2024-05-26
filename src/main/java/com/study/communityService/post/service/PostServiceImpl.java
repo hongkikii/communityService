@@ -9,9 +9,6 @@ import com.study.communityService.post.domain.PostCreate;
 import com.study.communityService.post.service.port.PostRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,20 +19,22 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> getLatest(int startPage) {
-        PageRequest pageRequest = PageRequest.of(startPage, 10, Sort.by(Direction.DESC,"createTime"));
-        return postRepository.findBy(pageRequest);
+        return postRepository.findByLatest(startPage);
     }
 
     @Override
     public List<Post> getByViews(int startPage) {
-        PageRequest pageRequest = PageRequest.of(startPage, 10, Sort.by(Direction.DESC,"views"));
-        return postRepository.findBy(pageRequest);
+        return postRepository.findByViews(startPage);
     }
 
     @Override
     public List<Post> getByLikes(int startPage) {
-        PageRequest pageRequest = PageRequest.of(startPage, 10, Sort.by(Direction.DESC, "likes"));
-        return postRepository.findBy(pageRequest);
+        return postRepository.findByLikes(startPage);
+    }
+
+    @Override
+    public List<Post> getByKeywords(int startPage, String[] keywords) {
+        return postRepository.findByKeywords(startPage, keywords);
     }
 
     @Override

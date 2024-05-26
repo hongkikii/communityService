@@ -7,7 +7,12 @@ spring:
     username: mimi
     password:
     driver-class-name: org.postgresql.Driver
+
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: create
+
+  elasticsearch:
+    uris: http://localhost:9200
+

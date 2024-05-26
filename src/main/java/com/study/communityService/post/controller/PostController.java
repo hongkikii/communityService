@@ -52,6 +52,15 @@ public class PostController {
                         .toList());
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<PostResponse>> getByKeywords(@RequestParam int startPage, @RequestParam String[] keywords) {
+        return ResponseEntity
+                .ok()
+                .body(postService.getByKeywords(startPage, keywords).stream()
+                        .map(PostResponse::from)
+                        .toList());
+    }
+
     @GetMapping("{id}")
     public ResponseEntity<PostResponse> getById(@PathVariable long id) {
         return ResponseEntity

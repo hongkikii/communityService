@@ -4,6 +4,7 @@ import com.study.communityService.post.domain.ContentUpdate;
 import com.study.communityService.post.domain.Headerupdate;
 import com.study.communityService.post.domain.Post;
 import com.study.communityService.post.domain.PostCreate;
+import java.util.Collection;
 import java.util.List;
 
 public interface PostService {
@@ -13,6 +14,8 @@ public interface PostService {
     List<Post> getByViews(int startPage);
 
     List<Post> getByLikes(int startPage);
+
+    List<Post> getByKeywords(int startPage, String[] keywords);
 
     Post getById(long id);
 
