@@ -1,34 +1,29 @@
 package com.study.communityService.post.infrastructure;
 
-import co.elastic.clients.elasticsearch.ElasticsearchClient;
-import co.elastic.clients.elasticsearch._types.query_dsl.MultiMatchQuery;
-import co.elastic.clients.elasticsearch._types.query_dsl.TextQueryType;
-import co.elastic.clients.elasticsearch.core.SearchRequest;
-import co.elastic.clients.elasticsearch.core.SearchResponse;
 import com.study.communityService.post.domain.Post;
 import com.study.communityService.post.service.port.PostRepository;
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @RequiredArgsConstructor
 public class PostRepositoryImpl implements PostRepository {
 
     private final PostJpaRepository postJpaRepository;
-    private final ElasticsearchClient elasticsearchClient;
+    private final PostElasticSearchRepository postElasticSearchRepository;
 
     @Override
+    @Transactional
     public Post save(Post post) {
-        return postJpaRepository.save(PostEntity.from(post))
-                .toModel();
+        Post savedPost = postJpaRepository.save(PostEntity.from(post)).toModel();
+        postElasticSearchRepository.save(PostDocument.from(savedPost));
+        return savedPost;
     }
 
     @Override
@@ -62,36 +57,11 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public List<Post> findByKeywords(int startPage, String[] keywords) {
-        String keywordQuery = String.join(" ", keywords);
-
-        MultiMatchQuery multiMatchQuery = MultiMatchQuery.of(mq -> mq
-                .query(keywordQuery)
-                .fields("header^2", "content")
-                .type(TextQueryType.BestFields)
-        );
-
-        SearchRequest searchRequest = new SearchRequest.Builder()
-                .index("posts")
-                .query(q -> q.multiMatch(multiMatchQuery))
-                .from(startPage * 10)
-                .size(10)
-                .build();
-
-        SearchResponse<Post> searchResponse = null;
-        try {
-            searchResponse = elasticsearchClient.search(searchRequest, Post.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        if (searchResponse != null) {
-            return searchResponse.hits().hits().stream()
-                    .map(hit -> hit.source())
-                    .toList();
-        } else {
-            return List.of();
-        }
+    public List<Post> findByKeywords(int startPage, String keyword) {
+        return postElasticSearchRepository.findByHeaderOrContent(keyword)
+                .stream()
+                .map(PostDocument::toModel)
+                .toList();
     }
 
     @Override

@@ -15,7 +15,7 @@ public interface PostRepository {
 
     Optional<Post> findById(long id);
 
-    List<Post> findByKeywords(int startPage, String[] keywords);
+    List<Post> findByKeywords(int startPage, String keyword);
 
     void deleteById(long id);
 }

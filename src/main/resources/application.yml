@@ -13,6 +13,8 @@ spring:
     hibernate:
       ddl-auto: create
 
-  elasticsearch:
-    uris: http://localhost:9200
+elasticsearch:
+  host: ${ELASTICSEARCH_HOST}
+  username: ${ELASTICSEARCH_USERNAME}
+  password: ${ELASTICSEARCH_PASSWORD}
 

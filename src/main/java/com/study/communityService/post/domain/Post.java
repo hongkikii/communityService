@@ -6,12 +6,12 @@ import lombok.Getter;
 
 @Getter
 public class Post {
-    private long id;
+    private Long id;
     private String header;
     private String content;
     private LocalDateTime createTime;
-    private int views;
-    private int likes;
+    private Integer views;
+    private Integer likes;
 
     @Builder
     public Post(long id, String header, String content, LocalDateTime createTime, int views, int likes) {

@@ -15,7 +15,7 @@ public interface PostService {
 
     List<Post> getByLikes(int startPage);
 
-    List<Post> getByKeywords(int startPage, String[] keywords);
+    List<Post> getByKeywords(int startPage, String keyword);
 
     Post getById(long id);
 

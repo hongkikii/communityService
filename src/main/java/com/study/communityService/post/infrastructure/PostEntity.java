@@ -8,10 +8,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
+import lombok.Builder;
 import lombok.Getter;
-import org.springframework.data.elasticsearch.annotations.Document;
 
-@Document(indexName = "posts")
 @Entity
 @Getter
 @Table(name = "posts")

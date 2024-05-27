@@ -33,8 +33,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> getByKeywords(int startPage, String[] keywords) {
-        return postRepository.findByKeywords(startPage, keywords);
+    public List<Post> getByKeywords(int startPage, String keyword) {
+        return postRepository.findByKeywords(startPage, keyword);
     }
 
     @Override

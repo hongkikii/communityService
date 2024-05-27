@@ -26,7 +26,7 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping("/latest")
-    public ResponseEntity<List<PostResponse>> getLatest(@RequestParam int startPage) {
+    public ResponseEntity<List<PostResponse>> getLatest(@RequestParam("startPage") int startPage) {
         return ResponseEntity
                 .ok()
                 .body(postService.getLatest(startPage).stream()
@@ -35,7 +35,7 @@ public class PostController {
     }
 
     @GetMapping("/views")
-    public ResponseEntity<List<PostResponse>> getByViews(@RequestParam int startPage) {
+    public ResponseEntity<List<PostResponse>> getByViews(@RequestParam("startPage") int startPage) {
         return ResponseEntity
                 .ok()
                 .body(postService.getByViews(startPage).stream()
@@ -44,7 +44,7 @@ public class PostController {
     }
 
     @GetMapping("/likes")
-    public ResponseEntity<List<PostResponse>> getByLikes(@RequestParam int startPage) {
+    public ResponseEntity<List<PostResponse>> getByLikes(@RequestParam("startPage") int startPage) {
         return ResponseEntity
                 .ok()
                 .body(postService.getByLikes(startPage).stream()
@@ -53,16 +53,16 @@ public class PostController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<PostResponse>> getByKeywords(@RequestParam int startPage, @RequestParam String[] keywords) {
+    public ResponseEntity<List<PostResponse>> getByKeywords(@RequestParam("startPage") int startPage, @RequestParam("keyword") String keyword) {
         return ResponseEntity
                 .ok()
-                .body(postService.getByKeywords(startPage, keywords).stream()
+                .body(postService.getByKeywords(startPage, keyword).stream()
                         .map(PostResponse::from)
                         .toList());
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<PostResponse> getById(@PathVariable long id) {
+    public ResponseEntity<PostResponse> getById(@PathVariable("id") long id) {
         return ResponseEntity
                 .ok()
                 .body(PostResponse.from(postService.getById(id)));
@@ -76,21 +76,21 @@ public class PostController {
     }
 
     @PutMapping("/header/{id}")
-    public ResponseEntity<PostResponse> update(@PathVariable long id, @RequestBody Headerupdate headerupdate) {
+    public ResponseEntity<PostResponse> update(@PathVariable("id") long id, @RequestBody Headerupdate headerupdate) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(PostResponse.from(postService.update(id, headerupdate)));
     }
 
     @PutMapping("/content/{id}")
-    public ResponseEntity<PostResponse> update(@PathVariable long id, @RequestBody ContentUpdate contentUpdate) {
+    public ResponseEntity<PostResponse> update(@PathVariable("id") long id, @RequestBody ContentUpdate contentUpdate) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(PostResponse.from(postService.update(id, contentUpdate)));
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<String> deleteById(@PathVariable long id) {
+    public ResponseEntity<String> deleteById(@PathVariable("id") long id) {
         postService.deleteById(id);
         return ResponseEntity
                 .status(HttpStatus.OK)
