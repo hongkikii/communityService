@@ -26,7 +26,7 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping("/latest")
-    public ResponseEntity<List<PostResponse>> getLatest(@RequestParam("startPage") int startPage) {
+    public ResponseEntity<List<PostResponse>> getByLatest(@RequestParam("startPage") int startPage) {
         return ResponseEntity
                 .ok()
                 .body(postService.getLatest(startPage).stream()
@@ -52,8 +52,8 @@ public class PostController {
                         .toList());
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<List<PostResponse>> getByKeywords(@RequestParam("startPage") int startPage, @RequestParam("keyword") String keyword) {
+    @GetMapping("/keyword")
+    public ResponseEntity<List<PostResponse>> getByKeyword(@RequestParam("startPage") int startPage, @RequestParam("keyword") String keyword) {
         return ResponseEntity
                 .ok()
                 .body(postService.getByKeywords(startPage, keyword).stream()

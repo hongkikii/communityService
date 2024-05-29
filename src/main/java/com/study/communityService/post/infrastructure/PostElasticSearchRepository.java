@@ -5,6 +5,6 @@ import org.springframework.data.elasticsearch.annotations.Query;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 public interface PostElasticSearchRepository extends ElasticsearchRepository<PostDocument, Long> {
-    @Query("{\"bool\": {\"should\": [{\"match\": {\"header\": \"?0\"}}, {\"match\": {\"content\": \"?0\"}}]}}")
+    @Query("{\"bool\": {\"should\": [{\"match\": {\"header\": {\"query\": \"?0\", \"boost\": 2}}}, {\"match\": {\"content\": {\"query\": \"?0\"}}}]}}")
     List<PostDocument> findByHeaderOrContent(String keyword);
 }
