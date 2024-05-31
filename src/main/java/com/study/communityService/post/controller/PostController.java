@@ -52,7 +52,7 @@ public class PostController {
                         .toList());
     }
 
-    @GetMapping("/keyword")
+    @GetMapping("/search")
     public ResponseEntity<List<PostResponse>> getByKeyword(@RequestParam("startPage") int startPage, @RequestParam("keyword") String keyword) {
         return ResponseEntity
                 .ok()

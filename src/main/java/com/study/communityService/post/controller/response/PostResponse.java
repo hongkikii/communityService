@@ -12,6 +12,7 @@ public class PostResponse {
     private String header;
     private String content;
     private LocalDateTime createTime;
+    private LocalDateTime modificationTime;
     private int views;
     private int likes;
 
@@ -21,6 +22,7 @@ public class PostResponse {
                 .header(post.getHeader())
                 .content(post.getContent())
                 .createTime(post.getCreateTime())
+                .modificationTime(post.getModificationTime())
                 .views(post.getViews())
                 .likes(post.getLikes())
                 .build();

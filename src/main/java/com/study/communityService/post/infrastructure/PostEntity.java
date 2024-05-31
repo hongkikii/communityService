@@ -17,7 +17,7 @@ import lombok.Getter;
 public class PostEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     private String header;
 
@@ -26,9 +26,15 @@ public class PostEntity {
     @Column(name = "create_time")
     private LocalDateTime createTime;
 
-    private int views;
+    @Column(name = "modification_time")
+    private LocalDateTime modificationTime;
 
-    private int likes;
+    private Integer views;
+
+    private Integer likes;
+
+    @Column(name = "is_deleted")
+    private Boolean isDeleted;
 
     public static PostEntity from(Post post) {
         PostEntity postEntity = new PostEntity();
@@ -36,8 +42,10 @@ public class PostEntity {
         postEntity.header = post.getHeader();
         postEntity.content = post.getContent();
         postEntity.createTime = post.getCreateTime();
+        postEntity.modificationTime = post.getModificationTime();
         postEntity.views = post.getViews();
         postEntity.likes = post.getLikes();
+        postEntity.isDeleted = post.getIsDeleted();
         return postEntity;
     }
 
@@ -47,8 +55,10 @@ public class PostEntity {
                 .header(header)
                 .content(content)
                 .createTime(createTime)
+                .modificationTime(modificationTime)
                 .views(views)
                 .likes(likes)
+                .isDeleted(isDeleted)
                 .build();
     }
 }

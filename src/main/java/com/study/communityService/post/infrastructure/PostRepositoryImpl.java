@@ -1,5 +1,6 @@
 package com.study.communityService.post.infrastructure;
 
+import com.study.communityService.common.domain.exception.ResourceNotFoundException;
 import com.study.communityService.post.domain.Post;
 import com.study.communityService.post.service.port.PostRepository;
 import java.util.List;
@@ -29,7 +30,7 @@ public class PostRepositoryImpl implements PostRepository {
     @Override
     public List<Post> findByLatest(int startPage) {
         PageRequest pageRequest = PageRequest.of(startPage, 10, Sort.by(Direction.DESC,"createTime"));
-        return postJpaRepository.findBy(pageRequest).stream()
+        return postJpaRepository.findByIsDeletedFalse(pageRequest).stream()
                 .map(PostEntity::toModel)
                 .toList();
     }
@@ -37,7 +38,7 @@ public class PostRepositoryImpl implements PostRepository {
     @Override
     public List<Post> findByViews(int startPage) {
         PageRequest pageRequest = PageRequest.of(startPage, 10, Sort.by(Direction.DESC,"views"));
-        return postJpaRepository.findBy(pageRequest).stream()
+        return postJpaRepository.findByIsDeletedFalse(pageRequest).stream()
                 .map(PostEntity::toModel)
                 .toList();
     }
@@ -45,7 +46,7 @@ public class PostRepositoryImpl implements PostRepository {
     @Override
     public List<Post> findByLikes(int startPage) {
         PageRequest pageRequest = PageRequest.of(startPage, 10, Sort.by(Direction.DESC,"likes"));
-        return postJpaRepository.findBy(pageRequest).stream()
+        return postJpaRepository.findByIsDeletedFalse(pageRequest).stream()
                 .map(PostEntity::toModel)
                 .toList();
     }
@@ -66,6 +67,8 @@ public class PostRepositoryImpl implements PostRepository {
 
     @Override
     public void deleteById(long id) {
-        postJpaRepository.deleteById(id);
+        Post deletePost = findById(id).map(Post::delete)
+                .orElseThrow(() -> new ResourceNotFoundException("Posts", id));
+        postJpaRepository.save(PostEntity.from(deletePost));
     }
 }

@@ -26,6 +26,9 @@ public class PostDocument {
     @Field(type = FieldType.Date, format = DateFormat.date_hour_minute_second)
     private LocalDateTime createTime;
 
+    @Field(type = FieldType.Date, format = DateFormat.date_hour_minute_second)
+    private LocalDateTime modificationTime;
+
     @Field(type = FieldType.Integer)
     private Integer views;
 
@@ -38,6 +41,7 @@ public class PostDocument {
         postDocument.header = post.getHeader();
         postDocument.content = post.getContent();
         postDocument.createTime = post.getCreateTime();
+        postDocument.modificationTime = post.getModificationTime();
         postDocument.views = post.getViews();
         postDocument.likes = post.getLikes();
         return postDocument;
@@ -49,6 +53,7 @@ public class PostDocument {
                 .header(header)
                 .content(content)
                 .createTime(createTime)
+                .modificationTime(modificationTime)
                 .views(views)
                 .likes(likes)
                 .build();

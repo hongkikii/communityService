@@ -5,5 +5,5 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PostJpaRepository extends JpaRepository<PostEntity, Long> {
-    Page<PostEntity> findBy(Pageable pageable);
+    Page<PostEntity> findByIsDeletedFalse(Pageable pageable);
 }
