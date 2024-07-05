@@ -19,22 +19,22 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> getLatest(int startPage) {
-        return postRepository.findByLatest(startPage);
+        return postRepository.getByLatest(startPage);
     }
 
     @Override
     public List<Post> getByViews(int startPage) {
-        return postRepository.findByViews(startPage);
+        return postRepository.getByViews(startPage);
     }
 
     @Override
     public List<Post> getByLikes(int startPage) {
-        return postRepository.findByLikes(startPage);
+        return postRepository.getByLikes(startPage);
     }
 
     @Override
     public List<Post> getByKeywords(int startPage, String keyword) {
-        return postRepository.findByKeywords(startPage, keyword);
+        return postRepository.getByKeywords(startPage, keyword);
     }
 
     @Override

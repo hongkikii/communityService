@@ -28,7 +28,7 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public List<Post> findByLatest(int startPage) {
+    public List<Post> getByLatest(int startPage) {
         PageRequest pageRequest = PageRequest.of(startPage, 10, Sort.by(Direction.DESC,"createTime"));
         return postJpaRepository.findByIsDeletedFalse(pageRequest).stream()
                 .map(PostEntity::toModel)
@@ -36,7 +36,7 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public List<Post> findByViews(int startPage) {
+    public List<Post> getByViews(int startPage) {
         PageRequest pageRequest = PageRequest.of(startPage, 10, Sort.by(Direction.DESC,"views"));
         return postJpaRepository.findByIsDeletedFalse(pageRequest).stream()
                 .map(PostEntity::toModel)
@@ -44,7 +44,7 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public List<Post> findByLikes(int startPage) {
+    public List<Post> getByLikes(int startPage) {
         PageRequest pageRequest = PageRequest.of(startPage, 10, Sort.by(Direction.DESC,"likes"));
         return postJpaRepository.findByIsDeletedFalse(pageRequest).stream()
                 .map(PostEntity::toModel)
@@ -58,7 +58,7 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public List<Post> findByKeywords(int startPage, String keyword) {
+    public List<Post> getByKeywords(int startPage, String keyword) {
         return postElasticSearchRepository.findByHeaderOrContent(keyword)
                 .stream()
                 .map(PostDocument::toModel)
