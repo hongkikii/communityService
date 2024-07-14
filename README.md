@@ -1,3 +1,8 @@
+✍🏻 문제 해결 과정 기록  
+https://false-challenge-ba9.notion.site/10-e7008a97c0d942998f2eff34f4c3c54e?pvs=4
+
+<br>
+
 # 🚀 기능 요구사항
 
 ### 1. 게시물 작성
