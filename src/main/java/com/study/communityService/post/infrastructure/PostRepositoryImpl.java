@@ -1,6 +1,6 @@
 package com.study.communityService.post.infrastructure;
 
-import com.study.communityService.common.domain.exception.ResourceNotFoundException;
+import com.study.communityService.common.exception.ResourceNotFoundException;
 import com.study.communityService.post.domain.Post;
 import com.study.communityService.post.service.port.PostRepository;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.study.communityService.common.domain.exception;
+package com.study.communityService.common.exception;
 
 public class ResourceNotFoundException extends RuntimeException {
 

@@ -1,6 +1,6 @@
 package com.study.communityService.post.service;
 
-import com.study.communityService.common.domain.exception.ResourceNotFoundException;
+import com.study.communityService.common.exception.ResourceNotFoundException;
 import com.study.communityService.post.controller.port.PostService;
 import com.study.communityService.post.domain.ContentUpdate;
 import com.study.communityService.post.domain.Headerupdate;
